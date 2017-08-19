@@ -2,6 +2,10 @@
 
 #include <king/Engine.h>
 #include <king/Updater.h>
+#include "../msvc/Grid.h"
+#include "../msvc/Tile.h"
+
+using namespace MidasMiner;
 
 //**********************************************************************
 
@@ -48,13 +52,47 @@ private:
 	float mYellowDiamondY;
 };
 
+class MidasMinerGame : public King::Updater {
+public:
+
+	MidasMinerGame()
+		: mEngine("./assets")
+	{
+
+	}
+
+	void Start() {
+		mEngine.Start(*this);
+		mGrid = Grid();
+	}
+
+	void Update() {
+		mEngine.Render(King::Engine::TEXTURE_BACKGROUND, 0, 0);
+
+		for(int i=0; i<8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if (mGrid.GetTile(i, j) != nullptr)
+				{
+					int a = ((i + j) % 5) + 1;
+					mEngine.Render(static_cast<King::Engine::Texture>(a), 325.0f + j * 44.0f, 100.0f + i * 44.0f);
+				}
+			}
+		}
+	}
+
+private:
+	King::Engine mEngine;
+	Grid mGrid;
+};
+
 //**********************************************************************
 
 int main(int argc, char *argv[]) {
-	ExampleGame game;
+	//ExampleGame game;
+	MidasMinerGame game;
 	game.Start();
 
 	return 0;
 }
-
-

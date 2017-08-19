@@ -19,7 +19,7 @@
 
 
 namespace King {
-	static const int WindowWidth = 800;
+	static const int WindowWidth = 755;
 	static const int WindowHeight = 600;
 	static const float MaxFrameTicks = 300.0f;
 	static const float TextScale = 0.5f;

@@ -1,2 +1,6 @@
 # Visual Studio cache directory
 /.vs/
+
+*.obj
+*.tlog
+*.log

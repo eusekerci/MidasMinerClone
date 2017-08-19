@@ -5,8 +5,11 @@
   SdlSurface.cpp
   SdlWindow.cpp
   main.cpp
+  BasicTile.cpp
+  Grid.cpp
+  Tile.cpp
   Generating code
-  All 281 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 401 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  Worktest.vcxproj -> C:\Users\enesu\Documents\Visual Studio 2017\Projects\C++ Game Developer Test 2015-11-05\vs2012 base project\bin\Worktest.exe
-  Worktest.vcxproj -> C:\Users\enesu\Documents\Visual Studio 2017\Projects\C++ Game Developer Test 2015-11-05\vs2012 base project\bin\Worktest.pdb (Full PDB)
+  Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.exe
+  Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.pdb (Full PDB)

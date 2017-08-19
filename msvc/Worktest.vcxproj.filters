@@ -19,6 +19,12 @@
     <Filter Include="Header Files\kinglib">
       <UniqueIdentifier>{6821ade4-45c6-4243-9e66-0f5cdb1a863b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{3c9f694a-3ef8-4c91-866c-5a7bf4e142fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{c3058e35-9905-4790-8b7a-a472c84313b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -42,6 +48,15 @@
     <ClCompile Include="..\external\include\king\SdlSurface.cpp">
       <Filter>Source Files\kinglib</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\include\king\Engine.h">
@@ -64,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="..\external\include\king\Updater.h">
       <Filter>Header Files\kinglib</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
