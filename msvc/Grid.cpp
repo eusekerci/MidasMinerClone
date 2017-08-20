@@ -11,7 +11,8 @@ namespace MidasMiner
 			std::vector< Tile* > * newVec = new std::vector< Tile* >();
 			for (int j = 0; j < mWidth; j++)
 			{
-				newVec->push_back(new Tile(Tile::BASIC, i, j));
+				newVec->push_back(RandomTile());
+				newVec->back()->SetPosition(i, j);
 			}
 			mGrid.push_back(newVec);
 		}
@@ -25,5 +26,11 @@ namespace MidasMiner
 	Tile* Grid::GetTile(int x, int y)
 	{
 		return mGrid[x]->at(y);
+	}
+
+	Tile * Grid::RandomTile()
+	{
+		int r = rand() % 5;
+		return TilePools[r]->Get();
 	}
 }

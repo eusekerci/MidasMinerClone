@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Tile.h"
+#include "PoolContainer.h"
 
 namespace MidasMiner
 {
@@ -12,7 +13,7 @@ namespace MidasMiner
 		~Grid();
 
 		Tile* GetTile(int x, int y);
-
+		Tile* RandomTile();
 
 	private:
 		int mWidth;

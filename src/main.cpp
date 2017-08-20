@@ -4,6 +4,7 @@
 #include <king/Updater.h>
 #include "../msvc/Grid.h"
 #include "../msvc/Tile.h"
+#include "../msvc/PoolContainer.h"
 
 using namespace MidasMiner;
 
@@ -75,8 +76,7 @@ public:
 			{
 				if (mGrid.GetTile(i, j) != nullptr)
 				{
-					int a = ((i + j) % 5) + 1;
-					mEngine.Render(static_cast<King::Engine::Texture>(a), 325.0f + j * 44.0f, 100.0f + i * 44.0f);
+					mEngine.Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid.GetTile(i, j)->GetColor())+1), 325.0f + j * 44.0f, 100.0f + i * 44.0f);
 				}
 			}
 		}

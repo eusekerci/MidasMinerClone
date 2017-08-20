@@ -54,7 +54,7 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="BasicTile.cpp">
+    <ClCompile Include="Pool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,6 +87,15 @@
       <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="BasicTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
