@@ -13,19 +13,20 @@ namespace MidasMiner
 
 	void Input::Notify(float x, float y)
 	{
-		for (std::vector<InputListener*>::iterator iter = mListeners.begin(); iter != mListeners.end(); iter++)
+		for (auto a : mListeners)
 		{
-			(*iter)->OnMouseDown(x, y);
+			(dynamic_cast<Controller*>(a))->OnMouseDown(x, y);
 		}
 	}
 
-	void Input::Attach(InputListener& listener)
+	void Input::Attach(Controller& listener)
 	{
 		mListeners.push_back(&listener);
 	}
 
 	void Input::Update()
 	{
+		int a = mListeners.size();
 		if (mEngine->GetMouseButtonDown())
 		{
 			Notify(mEngine->GetMouseX(), mEngine->GetMouseY());

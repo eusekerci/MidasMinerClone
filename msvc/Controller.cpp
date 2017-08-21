@@ -4,9 +4,11 @@ namespace MidasMiner
 {
 	Controller::Controller(Input& input, Grid& grid, GridView& view)
 	{
-		input.Attach(*this);
 		mGrid = &grid;
 		mView = &view;
+
+		firstSelect = NULL;
+		secondSelect = NULL;
 	}
 
 
@@ -16,6 +18,43 @@ namespace MidasMiner
 
 	void Controller::OnMouseDown(float x, float y)
 	{
+		if (mView->IsTileClicked(x, y))
+		{
+			OnTileSelected(*(mView->GetTileClicked(x,y)));
+		}
+	}
 
+	void Controller::OnTileSelected(Tile& t)
+	{
+		if (firstSelect != NULL)
+		{
+			if (*firstSelect != t)
+			{
+				OnSecondSelected(t);
+			}
+		}
+		else
+		{
+			OnFirstSelected(t);
+		}
+	}
+
+	void Controller::ResetSelections()
+	{
+		firstSelect = NULL;
+		secondSelect = NULL;
+		mView->OnResetSelection();
+	}
+
+	void Controller::OnFirstSelected(Tile& t)
+	{
+		firstSelect = &t;
+		mView->OnFirstSelected(t);
+	}
+
+	void Controller::OnSecondSelected(Tile& t)
+	{
+		secondSelect = &t;
+		ResetSelections();
 	}
 }

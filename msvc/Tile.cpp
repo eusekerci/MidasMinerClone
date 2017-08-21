@@ -33,7 +33,12 @@ namespace MidasMiner
 
 	bool Tile::operator==(const Tile & t)
 	{
-		return mColor == t.mColor;
+		return mColor == t.mColor && mX == t.mX && mY == t.mY;
+	}
+
+	bool Tile::operator!=(const Tile & t)
+	{
+		return mColor != t.mColor || mX != t.mX || mY != t.mY;
 	}
 
 	Tile::TileColor Tile::GetColor()

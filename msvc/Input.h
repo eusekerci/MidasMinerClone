@@ -1,13 +1,17 @@
+#ifndef INPUT_H_
+#define INPUT_H_
+
 #pragma once
 
 #include <vector>
-#include "InputListener.h"
-#include "Grid.h"
 #include <king/Engine.h>
+#include "Grid.h"
+#include "Controller.h"
 
 namespace MidasMiner
 {
-	class InputListener;
+	class InpusListener;
+	class Controller;
 
 	class Input
 	{
@@ -17,10 +21,12 @@ namespace MidasMiner
 		~Input();
 
 		void Notify(float x, float y);
-		void Attach(InputListener& listener);
+		void Attach(Controller& listener);
 		void Update();
 	private:
-		std::vector<InputListener*> mListeners;
+		std::vector<Controller*> mListeners;
 		King::Engine* mEngine;
 	};
 }
+
+#endif // INPUT_H_

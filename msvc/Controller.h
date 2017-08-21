@@ -10,6 +10,7 @@
 namespace MidasMiner
 {
 	class GridView;
+	class Input;
 	
 	class Controller : public InputListener
 	{
@@ -18,11 +19,17 @@ namespace MidasMiner
 		Controller() {};
 		Controller(Input& input, Grid& grid, GridView& view);
 		~Controller();
-		virtual void OnMouseDown(float x, float y);
+		void OnMouseDown(float x, float y);
+		void OnTileSelected(Tile& t);
+		void ResetSelections();
+		void OnFirstSelected(Tile& t);
+		void OnSecondSelected(Tile& t);
 
 	private:
 		Grid* mGrid;
 		GridView* mView;
+		Tile* firstSelect;
+		Tile* secondSelect;
 	};
 }
 

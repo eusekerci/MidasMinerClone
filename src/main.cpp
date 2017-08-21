@@ -69,10 +69,12 @@ public:
 	}
 
 	void Start() {
+		mInput.Attach(mController);
 		mEngine.Start(*this);
 	}
 
 	void Update() {
+		mInput.Update();
 		mView.Update();
 	}
 

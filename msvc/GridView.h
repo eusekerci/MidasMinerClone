@@ -14,13 +14,36 @@ namespace MidasMiner
 	class GridView
 	{
 	public:
+		struct Pixel
+		{
+			float x;
+			float y;
+		};
+
+		struct Position
+		{
+			int x;
+			int y;
+		};
+
 		GridView() {};
-		GridView(King::Engine& engine, Grid & grid);
+		GridView(King::Engine& engine, Grid& grid);
 		~GridView();
 
 		void Update();
 		void RenderBackground();
 		void RenderGrid();
+
+		bool IsTileClicked(Pixel pi);
+		bool IsTileClicked(float x, float y);
+		Tile* GetTileClicked(Pixel pi);
+		Tile* GetTileClicked(float x, float y);
+
+		void OnFirstSelected(Tile& t);
+		void OnResetSelection();
+
+		Pixel PositionToPixel(Position pos);
+		Position PixelToPosition(Pixel pi);
 
 	private:
 		King::Engine* mEngine;
@@ -38,6 +61,10 @@ namespace MidasMiner
 		float mGridBotRightY;
 		float mTileOffsetX;
 		float mTileOffsetY;
+
+		bool mIsTileSelected;
+		float mSelectedTileX;
+		float mSelectedTileY;
 	};
 }
 

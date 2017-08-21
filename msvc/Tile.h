@@ -21,6 +21,7 @@ namespace MidasMiner
 		bool IsAdjacent(Tile* newTile);
 		bool IsEqual(Tile* tile);
 		bool operator==(const Tile& t);
+		bool operator!=(const Tile& t);
 
 		TileColor GetColor();
 		int GetX();
