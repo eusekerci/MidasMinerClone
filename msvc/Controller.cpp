@@ -28,9 +28,13 @@ namespace MidasMiner
 	{
 		if (firstSelect != NULL)
 		{
-			if (*firstSelect != t)
+			if (*firstSelect != t && firstSelect->IsAdjacent(&t))
 			{
 				OnSecondSelected(t);
+			}
+			else
+			{
+				OnFirstSelected(t);
 			}
 		}
 		else
