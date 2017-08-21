@@ -25,6 +25,24 @@
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{c3058e35-9905-4790-8b7a-a472c84313b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\controller">
+      <UniqueIdentifier>{01cc02e8-a1fd-4ad4-8fa7-1b62bf26bcd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{1b8f13d1-fb37-48ea-9673-3b28720b0dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\controller">
+      <UniqueIdentifier>{20ae1d3a-a3f8-4621-9708-4291d251fe88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{85cc263d-fa6c-46e2-a86e-ccb0ffcd8d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\view">
+      <UniqueIdentifier>{e1443c19-56a3-49ea-85c8-6ec4f5100690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\view">
+      <UniqueIdentifier>{50d61b4a-dc79-4853-a790-e75d48cd0c34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -55,7 +73,16 @@
       <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="Pool.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="GridView.cpp">
+      <Filter>Source Files\view</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,17 +113,23 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="BasicTile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PoolContainer.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="Pool.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="InputListener.h">
+      <Filter>Header Files\controller</Filter>
     </ClInclude>
-    <ClInclude Include="PoolContainer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="GridView.h">
+      <Filter>Header Files\view</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

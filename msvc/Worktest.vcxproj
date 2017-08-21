@@ -83,7 +83,10 @@
     <ClCompile Include="..\external\include\king\SdlSurface.cpp" />
     <ClCompile Include="..\external\include\king\SdlWindow.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="GridView.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Pool.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
@@ -95,11 +98,13 @@
     <ClInclude Include="..\external\include\king\SdlSurface.h" />
     <ClInclude Include="..\external\include\king\SdlWindow.h" />
     <ClInclude Include="..\external\include\king\Updater.h" />
-    <ClInclude Include="BasicTile.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridView.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="InputListener.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="PoolContainer.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

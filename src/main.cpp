@@ -2,8 +2,11 @@
 
 #include <king/Engine.h>
 #include <king/Updater.h>
+#include "../msvc/Input.h"
 #include "../msvc/Grid.h"
 #include "../msvc/Tile.h"
+#include "../msvc/GridView.h"
+#include "../msvc/Controller.h"
 #include "../msvc/PoolContainer.h"
 
 using namespace MidasMiner;
@@ -59,32 +62,26 @@ public:
 	MidasMinerGame()
 		: mEngine("./assets")
 	{
-
+		mInput = Input(mEngine);
+		mGrid = Grid();
+		mView = GridView(mEngine, mGrid);
+		mController = Controller(mInput, mGrid, mView);
 	}
 
 	void Start() {
 		mEngine.Start(*this);
-		mGrid = Grid();
 	}
 
 	void Update() {
-		mEngine.Render(King::Engine::TEXTURE_BACKGROUND, 0, 0);
-
-		for(int i=0; i<8; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				if (mGrid.GetTile(i, j) != nullptr)
-				{
-					mEngine.Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid.GetTile(i, j)->GetColor())+1), 325.0f + j * 44.0f, 100.0f + i * 44.0f);
-				}
-			}
-		}
+		mView.Update();
 	}
 
 private:
 	King::Engine mEngine;
+	Input mInput;
 	Grid mGrid;
+	GridView mView;
+	Controller mController;
 };
 
 //**********************************************************************

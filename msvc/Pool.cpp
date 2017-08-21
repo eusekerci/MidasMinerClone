@@ -32,7 +32,7 @@ namespace MidasMiner
 	Tile ** Pool::GetMany(int a)
 	{
 		Tile** res = new Tile*[a];
-		for (int i; i < a; i++)
+		for (int i=0; i < a; i++)
 		{
 			res[i] = Get();
 		}

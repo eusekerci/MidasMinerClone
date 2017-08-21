@@ -10,12 +10,12 @@ namespace King {
 	class Engine {
 	public:
 		enum Texture {
-			TEXTURE_BACKGROUND,
 			TEXTURE_BLUE,
 			TEXTURE_GREEN,
 			TEXTURE_PURPLE,
 			TEXTURE_RED,
 			TEXTURE_YELLOW,
+			TEXTURE_BACKGROUND,
 			TEXTURE_MAX
 		};
 
