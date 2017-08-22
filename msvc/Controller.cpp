@@ -64,5 +64,6 @@ namespace MidasMiner
 	void Controller::OnSecondSelected(Tile& t)
 	{
 		secondSelect = &t;
+		ResetSelections();
 	}
 }

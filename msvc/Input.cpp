@@ -16,7 +16,7 @@ namespace MidasMiner
 	{
 		for (auto a : mListeners)
 		{
-			(dynamic_cast<Controller*>(a))->OnMouseDown(x, y);
+			a->OnMouseDown(x, y);
 		}
 	}
 
@@ -24,13 +24,25 @@ namespace MidasMiner
 	{
 		for (auto a : mListeners)
 		{
-			(dynamic_cast<Controller*>(a))->OnMouseUp(x, y);
+			a->OnMouseUp(x, y);
 		}
 	}
 
-	void Input::Attach(Controller& listener)
+	void Input::Attach(InputListener* listener)
 	{
-		mListeners.push_back(&listener);
+		InputListener * newListener = listener;
+		mListeners.push_back(newListener);
+	}
+
+	void Input::Detach(InputListener* listener)
+	{
+		for (auto a : mListeners)
+		{
+			if (a == listener)
+			{
+				mListeners.erase(std::remove(mListeners.begin(), mListeners.end(), listener), mListeners.end());
+			}
+		}
 	}
 
 	void Input::Update()

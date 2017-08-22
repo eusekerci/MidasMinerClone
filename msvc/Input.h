@@ -6,12 +6,11 @@
 #include <vector>
 #include <king/Engine.h>
 #include "Grid.h"
-#include "Controller.h"
+#include "InputListener.h"
 
 namespace MidasMiner
 {
-	class InpusListener;
-	class Controller;
+	class InputListener;
 
 	class Input
 	{
@@ -22,10 +21,11 @@ namespace MidasMiner
 
 		void OnMouseClickNotify(float x, float y);
 		void OnMouseUpNotify(float x, float y);
-		void Attach(Controller& listener);
+		void Attach(InputListener* listener);
+		void Detach(InputListener* listener);
 		void Update();
 	private:
-		std::vector<Controller*> mListeners;
+		std::vector<InputListener*> mListeners;
 		King::Engine* mEngine;
 		bool onMouseButtonUp;
 	};

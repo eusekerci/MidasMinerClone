@@ -69,7 +69,7 @@ public:
 	}
 
 	void Start() {
-		mInput.Attach(mController);
+		mInput.Attach(dynamic_cast<InputListener*>(&mController));
 		mEngine.Start(*this);
 	}
 
