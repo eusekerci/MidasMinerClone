@@ -7,12 +7,13 @@
   main.cpp
   Controller.cpp
   Grid.cpp
+Grid.cpp(20): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   GridView.cpp
   Input.cpp
   Pool.cpp
   Tile.cpp
   Generating code
-  All 705 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 706 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.exe
   Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.pdb (Full PDB)

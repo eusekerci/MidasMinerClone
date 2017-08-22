@@ -16,8 +16,9 @@ namespace MidasMiner
 			}
 			mGrid.push_back(newVec);
 		}
-	}
 
+		srand(time(NULL));
+	}
 
 	Grid::~Grid()
 	{
