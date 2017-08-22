@@ -5,17 +5,26 @@ namespace MidasMiner
 	Input::Input(King::Engine& engine)
 	{
 		mEngine = &engine;
+		onMouseButtonUp = false;
 	}
 
 	Input::~Input()
 	{
 	}
 
-	void Input::Notify(float x, float y)
+	void Input::OnMouseClickNotify(float x, float y)
 	{
 		for (auto a : mListeners)
 		{
 			(dynamic_cast<Controller*>(a))->OnMouseDown(x, y);
+		}
+	}
+
+	void Input::OnMouseUpNotify(float x, float y)
+	{
+		for (auto a : mListeners)
+		{
+			(dynamic_cast<Controller*>(a))->OnMouseUp(x, y);
 		}
 	}
 
@@ -29,7 +38,13 @@ namespace MidasMiner
 		int a = mListeners.size();
 		if (mEngine->GetMouseButtonDown())
 		{
-			Notify(mEngine->GetMouseX(), mEngine->GetMouseY());
+			onMouseButtonUp = true;
+			OnMouseClickNotify(mEngine->GetMouseX(), mEngine->GetMouseY());
+		}
+		else if(onMouseButtonUp)
+		{
+			onMouseButtonUp = false;
+			OnMouseUpNotify(mEngine->GetMouseX(), mEngine->GetMouseY());
 		}
 	}
 }

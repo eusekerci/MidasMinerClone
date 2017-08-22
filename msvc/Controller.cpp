@@ -24,6 +24,11 @@ namespace MidasMiner
 		}
 	}
 
+	void Controller::OnMouseUp(float x, float y)
+	{
+
+	}
+
 	void Controller::OnTileSelected(Tile& t)
 	{
 		if (firstSelect != NULL)
@@ -59,6 +64,5 @@ namespace MidasMiner
 	void Controller::OnSecondSelected(Tile& t)
 	{
 		secondSelect = &t;
-		ResetSelections();
 	}
 }

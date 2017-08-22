@@ -20,12 +20,14 @@ namespace MidasMiner
 		Input(King::Engine& engine);
 		~Input();
 
-		void Notify(float x, float y);
+		void OnMouseClickNotify(float x, float y);
+		void OnMouseUpNotify(float x, float y);
 		void Attach(Controller& listener);
 		void Update();
 	private:
 		std::vector<Controller*> mListeners;
 		King::Engine* mEngine;
+		bool onMouseButtonUp;
 	};
 }
 

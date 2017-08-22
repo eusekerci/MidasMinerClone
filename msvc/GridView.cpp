@@ -89,6 +89,11 @@ namespace MidasMiner
 		mSelectedTileY = pi.y;
 	}
 
+	void GridView::OnSecondSelected(Tile& t)
+	{
+
+	}
+
 	void GridView::OnResetSelection()
 	{
 		mIsTileSelected = false;

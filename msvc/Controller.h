@@ -20,6 +20,7 @@ namespace MidasMiner
 		Controller(Input& input, Grid& grid, GridView& view);
 		~Controller();
 		void OnMouseDown(float x, float y);
+		void OnMouseUp(float x, float y);
 		void OnTileSelected(Tile& t);
 		void ResetSelections();
 		void OnFirstSelected(Tile& t);

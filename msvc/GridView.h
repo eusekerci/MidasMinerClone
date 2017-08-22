@@ -40,6 +40,7 @@ namespace MidasMiner
 		Tile* GetTileClicked(float x, float y);
 
 		void OnFirstSelected(Tile& t);
+		void OnSecondSelected(Tile& t);
 		void OnResetSelection();
 
 		Pixel PositionToPixel(Position pos);
