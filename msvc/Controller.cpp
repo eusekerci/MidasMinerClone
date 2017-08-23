@@ -255,6 +255,10 @@ namespace MidasMiner
 			res.push_back(mGrid->GetTile(t->GetX(), i));
 		}
 
+		//Delete duplicate elements
+		std::sort(res.begin(), res.end());
+		res.erase(unique(res.begin(), res.end()), res.end());
+
 		return res;
 	}
 
@@ -304,9 +308,13 @@ namespace MidasMiner
 				if (CheckMatch(mGrid->GetTile(j, i), minLong))
 				{
 					ExecuteMatch(RetrieveMatch(mGrid->GetTile(j, i), minLong));
+					std::cout << "ExecuteAutoMatch at " << j << " " << i << std::endl;
+					mGrid->PrintGrid();
 					CollapseBoard();
+					std::cout << "CollapseBoard  - Auto" << std::endl;
+					mGrid->PrintGrid();
 					SummonNewTiles();
-					std::cout << "ExecuteAutoMatch" << std::endl;
+					std::cout << "SummonNewTiles - Auto" << std::endl;
 					mGrid->PrintGrid();
 				}
 			}
