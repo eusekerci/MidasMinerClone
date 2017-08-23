@@ -74,12 +74,26 @@ namespace MidasMiner
 		isSelectionActive = false;
 		if (Swap())
 		{
-
+			ExecuteMatch(RetrieveMatch(firstSelect, minLongToMatch));
+			ExecuteMatch(RetrieveMatch(secondSelect, minLongToMatch));
+			std::cout << "ExecuteMatch" << std::endl;
+			mGrid->PrintGrid();
+			CollapseBoard();
+			std::cout << "CollapseBoard" << std::endl;
+			mGrid->PrintGrid();
+			SummonNewTiles();
+			std::cout << "SummonNewTiles" << std::endl;
+			mGrid->PrintGrid();
+			while (CheckAutoMatch(minLongToMatch))
+			{
+				ExecuteAutoMatch(minLongToMatch);
+			}
 		}
 		else
 		{
 
 		}
+		SetReadyAllTiles();
 		ResetSelections();
 	}
 
@@ -202,6 +216,9 @@ namespace MidasMiner
 			}
 		}
 
+		if (comboLength < minLong)
+			comboLength = 0;
+
 		for (int i = cStart; i < cStart+comboLength; i++)
 		{
 			res.push_back(mGrid->GetTile(i, t->GetY()));
@@ -230,6 +247,9 @@ namespace MidasMiner
 			}
 		}
 
+		if (comboLength < minLong)
+			comboLength = 0;
+
 		for (int i = cStart; i < cStart + comboLength; i++)
 		{
 			res.push_back(mGrid->GetTile(t->GetX(), i));
@@ -240,9 +260,66 @@ namespace MidasMiner
 
 	void Controller::ExecuteMatch(std::vector<Tile*> tiles)
 	{
+		for (auto a : tiles)
+		{
+			mGrid->RemoveTile(a->GetX(), a->GetY());
+		}
 	}
 
-	void Controller::SummonNewTiles(std::vector<Tile*> tiles)
+	void Controller::CollapseBoard()
 	{
+		for (int i = 0; i < mGrid->GetWidth(); i++)
+		{
+			mGrid->ReOrganizeColumn(i);
+		}
+	}
+
+	void Controller::SummonNewTiles()
+	{
+		mGrid->FillEmptyTiles();
+	}
+
+	bool Controller::CheckAutoMatch(int minLong)
+	{
+		for (int i = 0; i < mGrid->GetWidth(); i++)
+		{
+			for (int j = 0; j < mGrid->GetHeight(); j++)
+			{
+				if (CheckMatch(mGrid->GetTile(j, i), minLong))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	void Controller::ExecuteAutoMatch(int minLong)
+	{
+		for (int i = 0; i < mGrid->GetWidth(); i++)
+		{
+			for (int j = 0; j < mGrid->GetHeight(); j++)
+			{
+				if (CheckMatch(mGrid->GetTile(j, i), minLong))
+				{
+					ExecuteMatch(RetrieveMatch(mGrid->GetTile(j, i), minLong));
+					CollapseBoard();
+					SummonNewTiles();
+					std::cout << "ExecuteAutoMatch" << std::endl;
+					mGrid->PrintGrid();
+				}
+			}
+		}
+	}
+	void Controller::SetReadyAllTiles()
+	{
+		for (int i = 0; i < mGrid->GetHeight(); i++)
+		{
+			for (int j = 0; j < mGrid->GetWidth(); j++)
+			{
+				mGrid->GetTile(i, j)->SetReady(true);
+			}
+		}
 	}
 }

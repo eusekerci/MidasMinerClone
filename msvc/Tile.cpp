@@ -5,7 +5,10 @@ namespace MidasMiner
 {
 	Tile::Tile()
 	{
-
+		mColor = COLOR_NULL;
+		mX = 0;
+		mY = 0;
+		mIsReady = false;
 	}
 
 	Tile::Tile(int x, int y, TileColor color)
@@ -62,6 +65,11 @@ namespace MidasMiner
 		return mY;
 	}
 
+	bool Tile::IsEmpty()
+	{
+		return mColor == COLOR_NULL;
+	}
+
 	bool Tile::IsReady()
 	{
 		return mIsReady;
@@ -74,6 +82,10 @@ namespace MidasMiner
 
 	void Tile::SetPosition(int x, int y)
 	{
+		if (mX != x || mY != y)
+		{
+			SetReady(false);
+		}
 		mX = x;
 		mY = y;
 	}

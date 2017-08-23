@@ -35,7 +35,11 @@ namespace MidasMiner
 		std::vector<Tile*> RetrieveMatch(Tile* t, int minLong);
 
 		void ExecuteMatch(std::vector<Tile*> tiles);
-		void SummonNewTiles(std::vector<Tile*> tiles);
+		void CollapseBoard();
+		void SummonNewTiles();
+		bool CheckAutoMatch(int minLong);
+		void ExecuteAutoMatch(int minLong);
+		void SetReadyAllTiles();
 
 	private:
 		Grid* mGrid;

@@ -47,7 +47,7 @@ namespace MidasMiner
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if (mGrid->GetTile(j, i)->IsReady())
+				if (mGrid->GetTile(j, i)->IsReady() && !mGrid->GetTile(j,i)->IsEmpty())
 					mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid->GetTile(j, i)->GetColor())), mGridTopLeftX + j * (mTileSizeX + mTileOffsetX), mGridTopLeftY + i * (mTileSizeY + mTileOffsetY));
 			}
 		}

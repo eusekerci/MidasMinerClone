@@ -7,6 +7,7 @@ namespace MidasMiner
 	public:
 		enum TileColor
 		{
+			COLOR_NULL,
 			COLOR_BLUE,
 			COLOR_GREEN,
 			COLOR_PURPLE,
@@ -27,6 +28,7 @@ namespace MidasMiner
 		TileColor GetColor();
 		int GetX();
 		int GetY();
+		bool IsEmpty();
 		bool IsReady();
 		void SetReady(bool r);
 		void SetPosition(int x, int y);
