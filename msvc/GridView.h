@@ -6,6 +6,8 @@
 #include <king\Engine.h>
 #include "Grid.h"
 #include "Controller.h"
+#include <vector>
+#include <algorithm>
 
 namespace MidasMiner
 {
@@ -26,6 +28,14 @@ namespace MidasMiner
 			int y;
 		};
 
+		struct TileTween
+		{
+			Tile* tile;
+			float currentPixelX;
+			float currentPixelY;
+			float time;
+		};
+
 		GridView() {};
 		GridView(King::Engine& engine, Grid& grid);
 		~GridView();
@@ -40,8 +50,10 @@ namespace MidasMiner
 		Tile* GetTileClicked(float x, float y);
 
 		void OnFirstSelected(Tile& t);
-		void OnSecondSelected(Tile& t);
 		void OnResetSelection();
+
+		void TileMoveTween(Tile& t, int oldX, int oldY);
+		void SpawnTileTween(Tile& t);
 
 		Pixel PositionToPixel(Position pos);
 		Position PixelToPosition(Pixel pi);
@@ -50,6 +62,7 @@ namespace MidasMiner
 		King::Engine* mEngine;
 		Controller* mController;
 		Grid* mGrid;
+		std::vector<TileTween> mDropingTiles;
 		
 		float mGridSizeX;
 		float mGridSizeY;
@@ -66,6 +79,8 @@ namespace MidasMiner
 		bool mIsTileSelected;
 		float mSelectedTileX;
 		float mSelectedTileY;
+
+		float mTileTweenSpeed;
 	};
 }
 

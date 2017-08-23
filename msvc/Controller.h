@@ -6,6 +6,7 @@
 #include "Grid.h"
 #include "GridView.h"
 #include "InputListener.h"
+#include <vector>
 
 namespace MidasMiner
 {
@@ -26,11 +27,18 @@ namespace MidasMiner
 		void OnFirstSelected(Tile& t);
 		void OnSecondSelected(Tile& t);
 
+		void InitBoard();
+		bool Swap();
+		std::vector<Tile*> CheckMatch(Tile *t);
+		void ExecuteMatch(std::vector<Tile*> tiles);
+		void SummonNewTiles(std::vector<Tile*> tiles);
+
 	private:
 		Grid* mGrid;
 		GridView* mView;
 		Tile* firstSelect;
 		Tile* secondSelect;
+		bool isSelectionActive;
 	};
 }
 

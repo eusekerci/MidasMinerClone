@@ -14,6 +14,7 @@ namespace MidasMiner
 		mX = x;
 		mY = y;
 		mColor = color;
+		mIsReady = false;
 	}
 
 	bool Tile::IsAdjacent(Tile* t)
@@ -26,9 +27,14 @@ namespace MidasMiner
 			return false;
 	}
 
-	bool Tile::IsEqual(Tile* t)
+	bool Tile::IsSameColor(Tile* t)
 	{
 		return mColor == t->mColor;
+	}
+
+	bool Tile::IsSameColor(TileColor color)
+	{
+		return color == mColor;
 	}
 
 	bool Tile::operator==(const Tile & t)
@@ -54,6 +60,16 @@ namespace MidasMiner
 	int Tile::GetY()
 	{
 		return mY;
+	}
+
+	bool Tile::IsReady()
+	{
+		return mIsReady;
+	}
+
+	void Tile::SetReady(bool r)
+	{
+		mIsReady = r;
 	}
 
 	void Tile::SetPosition(int x, int y)

@@ -20,6 +20,7 @@ namespace MidasMiner
 		mTileOffsetY = 9.0f;
 
 		mIsTileSelected = false;
+		mTileTweenSpeed = 10.0f;
 	}
 
 	GridView::~GridView()
@@ -39,11 +40,29 @@ namespace MidasMiner
 
 	void GridView::RenderGrid()
 	{
+		if (!mGrid->IsInitiliazed())
+			return;
+
 		for (int i = 0; i<8; i++)
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid->GetTile(i, j)->GetColor())), mGridTopLeftX + j * (mTileSizeX + mTileOffsetX), mGridTopLeftY + i * (mTileSizeY + mTileOffsetY));
+				if (mGrid->GetTile(j, i)->IsReady())
+					mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid->GetTile(j, i)->GetColor())), mGridTopLeftX + j * (mTileSizeX + mTileOffsetX), mGridTopLeftY + i * (mTileSizeY + mTileOffsetY));
+			}
+		}
+
+		for (int k=0; k<mDropingTiles.size(); k++)
+		{
+			mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mDropingTiles[k].tile->GetColor())), mDropingTiles[k].currentPixelX, mDropingTiles[k].currentPixelY);
+			mDropingTiles[k].time -= mEngine->GetLastFrameSeconds();
+			mDropingTiles[k].currentPixelY += mTileTweenSpeed;
+			if (mDropingTiles[k].time <= 0.01f)
+			{
+				mDropingTiles[k].tile->SetReady(true);
+				mDropingTiles.erase(std::remove_if(mDropingTiles.begin(), mDropingTiles.end(), [&](TileTween const & t) {
+					return t.tile == mDropingTiles[k].tile;
+				}), mDropingTiles.end());
 			}
 		}
 
@@ -63,7 +82,6 @@ namespace MidasMiner
 		Pixel pi{ x, y };
 		return IsTileClicked(pi);
 	}
-
 
 	Tile* GridView::GetTileClicked(Pixel pi)
 	{
@@ -89,14 +107,21 @@ namespace MidasMiner
 		mSelectedTileY = pi.y;
 	}
 
-	void GridView::OnSecondSelected(Tile& t)
-	{
-
-	}
-
 	void GridView::OnResetSelection()
 	{
 		mIsTileSelected = false;
+	}
+
+	void GridView::TileMoveTween(Tile & t, int oldX, int oldY)
+	{
+		
+	}
+
+	void GridView::SpawnTileTween(Tile & t)
+	{
+		TileTween tween{ &t, t.GetX() * (mTileOffsetX + mTileSizeX) + mGridTopLeftX, t.GetY() * (mTileOffsetY + mTileSizeY) - mGridSizeY + mGridTopLeftY, mGridSizeY / (mTileTweenSpeed / mEngine->GetLastFrameSeconds()) };
+
+		mDropingTiles.push_back(tween);
 	}
 
 	GridView::Pixel GridView::PositionToPixel(Position pos)
