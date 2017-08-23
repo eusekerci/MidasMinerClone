@@ -11,6 +11,7 @@ namespace MidasMiner
 		secondSelect = NULL;
 		
 		isSelectionActive = true;
+		minLongToMatch = 3;
 	}
 
 	Controller::~Controller()
@@ -71,7 +72,14 @@ namespace MidasMiner
 	{
 		secondSelect = &t;
 		isSelectionActive = false;
-		Swap();
+		if (Swap())
+		{
+
+		}
+		else
+		{
+
+		}
 		ResetSelections();
 	}
 
@@ -95,41 +103,139 @@ namespace MidasMiner
 
 	bool Controller::Swap()
 	{
-		std::cout << firstSelect->GetColor() << "(" << firstSelect->GetX() << "," << firstSelect->GetY() << ") " << std::endl;
-		std::cout << secondSelect->GetColor() << "(" << secondSelect->GetX() << "," << secondSelect->GetY() << ") " << std::endl;
-
 		mGrid->Swap(*firstSelect, *secondSelect);
 
-		std::vector<Tile*> resFirst = CheckMatch(firstSelect);
-		std::vector<Tile*> resSecond = CheckMatch(secondSelect);
+		if (CheckMatch(firstSelect, 3) || CheckMatch(secondSelect, 3))
+		{
+			std::cout << "Swap Succeed" << std::endl;
+			mGrid->PrintGrid();
 
-		//if (resFirst.size() <= 0 && resSecond.size() <= 0)
-		//{
-		//	mGrid->PrintGrid();
+			return true;
+		}
 
-		//	Tile* temp = firstSelect;
-		//	mGrid->AddTile(firstSelect->GetX(), firstSelect->GetY(), secondSelect);
-		//	mGrid->AddTile(secondSelect->GetX(), secondSelect->GetY(), temp);
+		//Revert
+		mGrid->Swap(*firstSelect, *secondSelect);
 
-		//	mGrid->PrintGrid();
-
-		//	return false;
-		//}
-		
-		ExecuteMatch(resFirst);
-		ExecuteMatch(resSecond);
-
-		std::cout << firstSelect->GetColor() << "(" << firstSelect->GetX() << "," << firstSelect->GetY() << ") " << std::endl;
-		std::cout << secondSelect->GetColor() << "(" << secondSelect->GetX() << "," << secondSelect->GetY() << ") " << std::endl;
-
+		std::cout << "Swap Failed" << std::endl;
 		mGrid->PrintGrid();
 
-		return true;
+		return false;
 	}
 
-	std::vector<Tile*> Controller::CheckMatch(Tile * t)
+	bool Controller::CheckMatch(Tile * t, int minLong)
 	{
-		return std::vector<Tile*>();
+		//Check row
+		int inStart = t->GetX() - (minLong - 1) >= 0 ? t->GetX() - (minLong - 1) : 0;
+		int inEnd = t->GetX() + (minLong - 1) < mGrid->GetWidth() ? t->GetX() + (minLong - 1) : mGrid->GetWidth() - 1;
+		int comboLength = 0;
+		
+		for (int i = inStart; i <= inEnd; i++)
+		{
+			if (mGrid->GetTile(i, t->GetY())->IsSameColor(t))
+			{
+				comboLength++;
+			}
+			else if(comboLength >= minLong)
+			{
+				return true;
+			}
+			else
+			{
+				comboLength = 0;
+			}
+		}
+
+		if (comboLength >= minLong)
+			return true;
+
+		//Check column
+		inStart = t->GetY() - (minLong - 1) >= 0 ? t->GetY() - (minLong -1 ) : 0;
+		inEnd = t->GetY() + (minLong - 1) < mGrid->GetHeight() ? t->GetY() + (minLong - 1) : mGrid->GetHeight() - 1;
+		comboLength = 0;
+		
+		for (int i = inStart; i <= inEnd; i++)
+		{
+			if (mGrid->GetTile(t->GetX(), i)->IsSameColor(t))
+			{
+				comboLength++;
+			}
+			else if (comboLength >= minLong)
+			{
+				return true;
+			}
+			else
+			{
+				comboLength = 0;
+			}
+		}
+
+		if (comboLength >= minLong)
+			return true;
+
+		return false;
+	}
+
+	std::vector<Tile*> Controller::RetrieveMatch(Tile * t, int minLong)
+	{
+		std::vector<Tile*> res;
+		//Check row
+		int inStart = t->GetX() - (minLong - 1) >= 0 ? t->GetX() - (minLong - 1) : 0;
+		int inEnd = t->GetX() + (minLong - 1) < mGrid->GetWidth() ? t->GetX() + (minLong - 1) : mGrid->GetWidth() - 1;
+		int comboLength = 0;
+		int cStart = 0;
+
+		for (int i = inStart; i <= inEnd; i++)
+		{
+			if (mGrid->GetTile(i, t->GetY())->IsSameColor(t))
+			{
+				if (comboLength == 0)
+					cStart = i;
+				comboLength++;
+			}
+			else if (comboLength >= minLong)
+			{
+				break;
+			}
+			else
+			{
+				comboLength = 0;
+			}
+		}
+
+		for (int i = cStart; i < cStart+comboLength; i++)
+		{
+			res.push_back(mGrid->GetTile(i, t->GetY()));
+		}
+
+		//Check column
+		inStart = t->GetY() - (minLong - 1) >= 0 ? t->GetY() - (minLong - 1) : 0;
+		inEnd = t->GetY() + (minLong - 1) < mGrid->GetHeight() ? t->GetY() + (minLong - 1) : mGrid->GetHeight() - 1;
+		comboLength = 0;
+
+		for (int i = inStart; i <= inEnd; i++)
+		{
+			if (mGrid->GetTile(t->GetX(), i)->IsSameColor(t))
+			{
+				if (comboLength == 0)
+					cStart = i;
+				comboLength++;
+			}
+			else if (comboLength >= minLong)
+			{
+				break;
+			}
+			else
+			{
+				comboLength = 0;
+			}
+		}
+
+		for (int i = cStart; i < cStart + comboLength; i++)
+		{
+			res.push_back(mGrid->GetTile(t->GetX(), i));
+		}
+
+		return res;
 	}
 
 	void Controller::ExecuteMatch(std::vector<Tile*> tiles)

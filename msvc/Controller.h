@@ -7,6 +7,7 @@
 #include "GridView.h"
 #include "InputListener.h"
 #include <vector>
+#include <algorithm>
 
 namespace MidasMiner
 {
@@ -29,7 +30,10 @@ namespace MidasMiner
 
 		void InitBoard();
 		bool Swap();
-		std::vector<Tile*> CheckMatch(Tile *t);
+		
+		bool CheckMatch(Tile* t, int minLong);
+		std::vector<Tile*> RetrieveMatch(Tile* t, int minLong);
+
 		void ExecuteMatch(std::vector<Tile*> tiles);
 		void SummonNewTiles(std::vector<Tile*> tiles);
 
@@ -39,6 +43,7 @@ namespace MidasMiner
 		Tile* firstSelect;
 		Tile* secondSelect;
 		bool isSelectionActive;
+		int minLongToMatch;
 	};
 }
 

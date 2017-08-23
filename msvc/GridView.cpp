@@ -52,7 +52,7 @@ namespace MidasMiner
 			}
 		}
 
-		for (int k=0; k<mDropingTiles.size(); k++)
+		for (unsigned int k=0; k<mDropingTiles.size(); k++)
 		{
 			mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mDropingTiles[k].tile->GetColor())), mDropingTiles[k].currentPixelX, mDropingTiles[k].currentPixelY);
 			mDropingTiles[k].time -= mEngine->GetLastFrameSeconds();

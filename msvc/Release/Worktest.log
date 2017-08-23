@@ -8,12 +8,11 @@
   Controller.cpp
   Grid.cpp
   GridView.cpp
-GridView.cpp(55): warning C4018: '<': signed/unsigned mismatch
   Input.cpp
   Pool.cpp
   Tile.cpp
   Generating code
-  All 881 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 864 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.exe
   Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.pdb (Full PDB)

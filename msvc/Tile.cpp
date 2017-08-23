@@ -78,7 +78,6 @@ namespace MidasMiner
 		mY = y;
 	}
 
-
 	Tile::~Tile()
 	{
 	}
