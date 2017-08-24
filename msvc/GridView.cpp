@@ -20,7 +20,7 @@ namespace MidasMiner
 		mTileOffsetY = 9.0f;
 
 		mIsTileSelected = false;
-		mTileTweenSpeed = 15.0f;
+		mTileTweenSpeed = 8.0f;
 	}
 
 	GridView::~GridView()
@@ -47,21 +47,24 @@ namespace MidasMiner
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if (mGrid->GetTile(j, i)->IsReady() && !mGrid->GetTile(j,i)->IsEmpty())
-					mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mGrid->GetTile(j, i)->GetColor())), mGridTopLeftX + j * (mTileSizeX + mTileOffsetX), mGridTopLeftY + i * (mTileSizeY + mTileOffsetY));
+				//if (mGrid->GetTile(j, i)->IsReady() && !mGrid->GetTile(j,i)->IsEmpty())
+				if(colorMatrix[i][j] != 0 && readyMatrix[i][j] == 1)
+					mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(colorMatrix[i][j])), mGridTopLeftX + j * (mTileSizeX + mTileOffsetX), mGridTopLeftY + i * (mTileSizeY + mTileOffsetY));
 			}
 		}
 
-		//int k = 0;
 		int priority;
-		if (mDropingTiles.size() > 0)
+		if (!mDropingTiles.empty())
 			priority = mDropingTiles[0].priority;
+		else
+			UpdateMatrix();
+
 		for (unsigned int k=0; k<mDropingTiles.size(); k++)		
 		{
 			if (priority < mDropingTiles[k].priority)
 				break;
 			mDropingTiles[k].tile->SetReady(false);
-			//if(!mDropingTiles[k].tile->IsEmpty())
+			UpdateMatrix(mDropingTiles[k].tweenColorMatrix, mDropingTiles[k].tweenReadyMatrix);
 			if(mDropingTiles[k].color != Tile::COLOR_NULL)
 				mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(mDropingTiles[k].color)), mDropingTiles[k].currentPixelX, mDropingTiles[k].currentPixelY);
 			
@@ -82,35 +85,6 @@ namespace MidasMiner
 				}), mDropingTiles.end());
 			}
 		}
-
-		/*if (!mAnimationQueue.empty() > 0)
-		{
-			TileTween tween = mAnimationQueue.top();
-			if (!tween.tile->IsEmpty())
-				mEngine->Render(static_cast<King::Engine::Texture>(static_cast<int>(tween.tile->GetColor())), tween.currentPixelX, tween.currentPixelY);
-
-			tween.time -= mEngine->GetLastFrameSeconds();
-			float dirX = tween.toPixelX - tween.currentPixelX;
-			float dirY = tween.toPixelY - tween.currentPixelY;
-
-			if (abs(dirX) - mTileTweenSpeed > 0)
-				tween.currentPixelX += dirX > 0.01f ? mTileTweenSpeed : mTileTweenSpeed * -1;
-			if (abs(dirY) - mTileTweenSpeed > 0)
-				tween.currentPixelY += dirY > 0.01f ? mTileTweenSpeed : mTileTweenSpeed * -1;
-
-			std::cout << tween.time << std::endl;
-
-			if (tween.time <= 0.01f)
-			{
-				mAnimationQueue.top().tile->SetReady(true);
-				mAnimationQueue.pop();
-			}
-			else
-			{
-				mAnimationQueue.pop();
-				mAnimationQueue.push(tween);
-			}
-		}*/
 
 		if (mIsTileSelected)
 		{
@@ -168,6 +142,15 @@ namespace MidasMiner
 		Pixel pi = PositionToPixel(Position{ t.GetX(), t.GetY() });
 		TileTween tween{ &t, t.GetColor(), pi.x, pi.y - mGridSizeY, pi.x, pi.y, mGridSizeY / (mTileTweenSpeed / mEngine->GetLastFrameSeconds()) , order};
 
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				tween.tweenColorMatrix[i][j] = static_cast<int>(mGrid->GetTile(j, i)->GetColor());
+				tween.tweenReadyMatrix[i][j] = mGrid->GetTile(j, i)->IsReady();
+			}
+		}
+
 		mDropingTiles.push_back(tween);
 		std::sort(mDropingTiles.begin(), mDropingTiles.end());
 	}
@@ -180,6 +163,18 @@ namespace MidasMiner
 		float mTime = (abs(pi1.x - pi2.x) + abs(pi1.y - pi2.y)) / (mTileTweenSpeed / mEngine->GetLastFrameSeconds());
 		TileTween tween1{ &t1, t1.GetColor(), pi2.x, pi2.y, pi1.x, pi1.y, mTime , order};
 		TileTween tween2{ &t2, t2.GetColor(), pi1.x, pi1.y, pi2.x, pi2.y, mTime , order};
+
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				tween1.tweenColorMatrix[i][j] = mGrid->GetTile(j, i)->GetColor();
+				tween1.tweenReadyMatrix[i][j] = mGrid->GetTile(j, i)->IsReady();
+															     
+				tween2.tweenColorMatrix[i][j] = mGrid->GetTile(j, i)->GetColor();
+				tween2.tweenReadyMatrix[i][j] = mGrid->GetTile(j, i)->IsReady();
+			}
+		}
 
 		mDropingTiles.push_back(tween1);
 		mDropingTiles.push_back(tween2);
@@ -200,6 +195,30 @@ namespace MidasMiner
 		int tileY = static_cast<int>(pi.y - mGridTopLeftY) / static_cast<int>(mTileSizeY + mTileOffsetY);
 		
 		return Position{ tileX, tileY };
+	}
+
+	void GridView::UpdateMatrix()
+	{
+		for (int i = 0; i < mGrid->GetHeight(); i++)
+		{
+			for (int j = 0; j < mGrid->GetWidth(); j++)
+			{
+				colorMatrix[i][j] = mGrid->GetTile(j,i)->GetColor();
+				readyMatrix[i][j] = mGrid->GetTile(j,i)->IsReady();
+			}
+		}
+	}
+
+	void GridView::UpdateMatrix(int c[8][8], int r[8][8])
+	{
+		for (int i = 0; i < mGrid->GetHeight(); i++)
+		{
+			for (int j = 0; j < mGrid->GetWidth(); j++)
+			{
+				colorMatrix[i][j] = c[i][j];
+				readyMatrix[i][j] = r[i][j];
+			}
+		}
 	}
 
 	bool GridView::WaitForAnim()

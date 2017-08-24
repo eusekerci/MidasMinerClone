@@ -39,13 +39,13 @@ namespace MidasMiner
 			float toPixelY;
 			float time;
 			float priority;
+			int tweenReadyMatrix[8][8];
+			int tweenColorMatrix[8][8];
 
 			bool operator<(const TileTween& rhs) const
 			{
 				return priority < rhs.priority;
 			}
-
-			bool compare(int i, int j) { return i < j; }
 		};
 
 		GridView() {};
@@ -71,6 +71,9 @@ namespace MidasMiner
 		Pixel PositionToPixel(Position pos);
 		Position PixelToPosition(Pixel pi);
 
+		void UpdateMatrix();
+		void UpdateMatrix(int r[8][8], int c[8][8]);
+
 		bool WaitForAnim();
 
 	private:
@@ -78,6 +81,8 @@ namespace MidasMiner
 		Controller* mController;
 		Grid* mGrid;
 		std::vector<TileTween> mDropingTiles;
+		int readyMatrix[8][8];
+		int colorMatrix[8][8];
 		
 		float mGridSizeX;
 		float mGridSizeY;

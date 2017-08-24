@@ -107,13 +107,24 @@ namespace MidasMiner
 			{
 				newVec->push_back(mGrid->RandomTile());
 				newVec->back()->SetPosition(j, i);
-				mView->SpawnTileTween(*(newVec->back()), mSwapOrder);
+	//			mView->SpawnTileTween(*(newVec->back()), mSwapOrder);
 			}
 			res.push_back(newVec);
 		}
-		mSwapOrder++;
 
 		mGrid->SetGrid(res);
+
+		mView->UpdateMatrix();
+
+		for (int i = 0; i < mGrid->GetHeight(); i++)
+		{
+			for (int j = 0; j < mGrid->GetWidth(); j++)
+			{
+				mView->SpawnTileTween(*(mGrid->GetTile(i, j)), mSwapOrder);
+			}
+		}
+
+		mSwapOrder++;
 	}
 
 	bool Controller::Swap()
