@@ -74,8 +74,10 @@ public:
 		mEngine.Start(*this);
 	}
 
-	void Update() {
+	void Update()
+	{
 		mInput.Update();
+		mController.Update();
 		mView.Update();
 	}
 

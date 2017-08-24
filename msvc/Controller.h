@@ -28,6 +28,7 @@ namespace MidasMiner
 		void OnFirstSelected(Tile& t);
 		void OnSecondSelected(Tile& t);
 
+		void Update();
 		void InitBoard();
 		bool Swap();
 		

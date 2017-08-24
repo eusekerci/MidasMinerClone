@@ -97,6 +97,11 @@ namespace MidasMiner
 		ResetSelections();
 	}
 
+	void Controller::Update()
+	{
+
+	}
+
 	void Controller::InitBoard()
 	{
 		std::vector<std::vector< Tile * > *> res;
