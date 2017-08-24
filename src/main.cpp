@@ -8,6 +8,7 @@
 #include "../msvc/GridView.h"
 #include "../msvc/Controller.h"
 #include "../msvc/PoolContainer.h"
+#include "../msvc/ScoreManager.h"
 
 using namespace MidasMiner;
 
@@ -64,13 +65,15 @@ public:
 	{
 		mInput = Input(mEngine);
 		mGrid = Grid();
-		mView = GridView(mEngine, mGrid);
+		mView = GridView(mEngine, mGrid, mScoreAndTime);
 		mController = Controller(mInput, mGrid, mView);
+		mScoreAndTime = ScoreManager(mController, mEngine);
 	}
 
 	void Start() {
-		mInput.Attach(dynamic_cast<InputListener*>(&mController));
-		mController.InitBoard();
+		mController.Init();
+		mView.Init();
+		mScoreAndTime.Init();
 		mEngine.Start(*this);
 	}
 
@@ -78,6 +81,7 @@ public:
 	{
 		mInput.Update();
 		mController.Update();
+		mScoreAndTime.Update();
 		mView.Update();
 	}
 
@@ -87,6 +91,7 @@ private:
 	Grid mGrid;
 	GridView mView;
 	Controller mController;
+	ScoreManager mScoreAndTime;
 };
 
 //**********************************************************************

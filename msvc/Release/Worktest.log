@@ -10,9 +10,10 @@
   GridView.cpp
   Input.cpp
   Pool.cpp
+  ScoreManager.cpp
   Tile.cpp
   Generating code
-  All 901 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 1279 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.exe
   Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.pdb (Full PDB)

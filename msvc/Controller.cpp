@@ -6,6 +6,7 @@ namespace MidasMiner
 	{
 		mGrid = &grid;
 		mView = &view;
+		mInput = &input;
 
 		firstSelect = NULL;
 		secondSelect = NULL;
@@ -75,16 +76,15 @@ namespace MidasMiner
 		isSelectionActive = false;
 		if (Swap())
 		{
-			ExecuteMatch(RetrieveMatch(firstSelect, minLongToMatch));
-			ExecuteMatch(RetrieveMatch(secondSelect, minLongToMatch));
-			std::cout << "ExecuteMatch" << std::endl;
-			mGrid->PrintGrid();
+			if(CheckMatch(firstSelect, minLongToMatch))
+				ExecuteMatch(RetrieveMatch(firstSelect, minLongToMatch));
+			if (CheckMatch(secondSelect, minLongToMatch))
+				ExecuteMatch(RetrieveMatch(secondSelect, minLongToMatch));
+			mGrid->PrintGrid("ExecuteMatch");
 			CollapseBoard();
-			std::cout << "CollapseBoard" << std::endl;
-			mGrid->PrintGrid();
+			mGrid->PrintGrid("CollapseBoard");
 			SummonNewTiles();
-			std::cout << "SummonNewTiles" << std::endl;
-			mGrid->PrintGrid();
+			mGrid->PrintGrid("SummonNewTiles");
 			while (CheckAutoMatch(minLongToMatch))
 			{
 				ExecuteAutoMatch(minLongToMatch);
@@ -97,12 +97,7 @@ namespace MidasMiner
 		ResetSelections();
 	}
 
-	void Controller::Update()
-	{
-
-	}
-
-	void Controller::InitBoard()
+	void Controller::Init()
 	{
 		std::vector<std::vector< Tile * > *> res;
 		for (int i = 0; i < mGrid->GetHeight(); i++)
@@ -125,7 +120,14 @@ namespace MidasMiner
 
 		mGrid->SetInitiliazed(true);
 
-		mGrid->PrintGrid();
+		mGrid->PrintGrid("Board Initiliazed");
+
+		mInput->Attach(dynamic_cast<InputListener*>(this));
+	}
+
+	void Controller::Update()
+	{
+
 	}
 
 	bool Controller::Swap()
@@ -134,17 +136,15 @@ namespace MidasMiner
 
 		if (CheckMatch(firstSelect, 3) || CheckMatch(secondSelect, 3))
 		{
-			std::cout << "Swap Succeed" << std::endl;
-			mGrid->PrintGrid();
+			mGrid->PrintGrid("Swap Succeed");
 
 			return true;
 		}
 
-		//Revert
 		mGrid->Swap(*firstSelect, *secondSelect);
-
-		std::cout << "Swap Failed" << std::endl;
-		mGrid->PrintGrid();
+		std::cout << "first one: " << firstSelect->GetExactX() << " " << firstSelect->GetExactY() << std::endl;
+		std::cout << "second one: " << secondSelect->GetExactX() << " " << secondSelect->GetExactY() << std::endl;
+		mGrid->PrintGrid("Swap Failed");
 
 		return false;
 	}
@@ -275,8 +275,50 @@ namespace MidasMiner
 		return res;
 	}
 
+	MatchTypes Controller::GetMatchType(std::vector<Tile*> tiles)
+	{
+		if (tiles.size() == 3)
+			return THREE_LINE;
+		else if (tiles.size() == 4)
+			return FOUR_LINE;
+		else if(tiles.size() > 4)
+		{
+			bool isStraightLine = true;
+			bool hasSameX = tiles[0]->GetX() == tiles[1]->GetY();
+			for (unsigned int i = 1; i < tiles.size()-1; i++)
+			{
+				if (hasSameX)
+				{
+					if (tiles[i]->GetX() != tiles[i + 1]->GetX())
+					{
+						isStraightLine = false;
+						break;
+					}
+				}
+				else
+				{
+					if (tiles[i]->GetY() != tiles[i + 1]->GetY())
+					{
+						isStraightLine = false;
+						break;
+					}
+				}
+			}
+
+			if (isStraightLine)
+				return FIVE_LINE;
+			else
+				return CROSS_LINE;
+		}
+		
+		return INVALID_MATCH;
+	}
+
 	void Controller::ExecuteMatch(std::vector<Tile*> tiles)
 	{
+		MatchTypes type = GetMatchType(tiles);
+		OnMatchNotify(type, tiles[0]->GetX(), tiles[0]->GetY());
+
 		for (auto a : tiles)
 		{
 			mGrid->RemoveTile(a->GetX(), a->GetY());
@@ -364,14 +406,11 @@ namespace MidasMiner
 				if (CheckMatch(mGrid->GetTile(j, i), minLong))
 				{
 					ExecuteMatch(RetrieveMatch(mGrid->GetTile(j, i), minLong));
-					std::cout << "ExecuteAutoMatch at " << j << " " << i << std::endl;
-					mGrid->PrintGrid();
+					mGrid->PrintGrid("ExecuteAutoMatch at " + std::to_string(j) + " " + std::to_string(i));
 					CollapseBoard();
-					std::cout << "CollapseBoard  - Auto" << std::endl;
-					mGrid->PrintGrid();
+					mGrid->PrintGrid("CollapseBoard  - Auto");
 					SummonNewTiles();
-					std::cout << "SummonNewTiles - Auto" << std::endl;
-					mGrid->PrintGrid();
+					mGrid->PrintGrid("SummonNewTiles - Auto");
 				}
 			}
 		}
@@ -387,4 +426,35 @@ namespace MidasMiner
 			}
 		}
 	}
+
+#pragma region  MatchNotifier
+
+	void Controller::OnMatchNotify(MatchTypes type, int x, int y)
+	{
+		if (mListeners.empty())
+			return;
+		for (auto a : mListeners)
+		{
+			a->OnMatch(type, x, y);
+		}
+	}
+
+	void Controller::Attach(MatchListener* listener)
+	{
+		MatchListener * newListener = listener;
+		mListeners.push_back(newListener);
+	}
+
+	void Controller::Detach(MatchListener* listener)
+	{
+		for (auto a : mListeners)
+		{
+			if (a == listener)
+			{
+				mListeners.erase(std::remove(mListeners.begin(), mListeners.end(), listener), mListeners.end());
+			}
+		}
+	}
+#pragma endregion
+
 }

@@ -6,6 +6,7 @@
 #include <king\Engine.h>
 #include "Grid.h"
 #include "Controller.h"
+#include "ScoreManager.h"
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -13,6 +14,7 @@
 namespace MidasMiner
 {
 	class Controller;
+	class ScoreManager;
 
 	class GridView
 	{
@@ -30,12 +32,14 @@ namespace MidasMiner
 		};
 
 		GridView() {};
-		GridView(King::Engine& engine, Grid& grid);
+		GridView(King::Engine& engine, Grid& grid, ScoreManager& score);
 		~GridView();
 
+		void Init();
 		void Update();
 		void RenderBackground();
 		void RenderGrid();
+		void RenderUI();
 
 		bool IsTileClicked(Pixel pi);
 		bool IsTileClicked(float x, float y);
@@ -52,6 +56,7 @@ namespace MidasMiner
 		King::Engine* mEngine;
 		Controller* mController;
 		Grid* mGrid;
+		ScoreManager* mScoreManager;
 		
 		float mGridSizeX;
 		float mGridSizeY;

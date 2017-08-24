@@ -8,6 +8,7 @@
 #include "Tile.h"
 #include "PoolContainer.h"
 #include <iostream>
+#include <string>
 
 namespace MidasMiner
 {
@@ -30,7 +31,7 @@ namespace MidasMiner
 		std::vector< Tile*> GetColumn(int y);
 		std::vector< Tile*> GetByColor(Tile::TileColor color);
 		bool IsTileEmpty(int x, int y);
-		void PrintGrid();
+		void PrintGrid(const std::string msg = "");
 		int GetWidth();
 		int GetHeight();
 		bool IsInitiliazed();

@@ -84,6 +84,9 @@
     <ClCompile Include="GridView.cpp">
       <Filter>Source Files\view</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\include\king\Engine.h">
@@ -133,6 +136,15 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchListener.h">
+      <Filter>Header Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchNotifier.h">
+      <Filter>Header Files\controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

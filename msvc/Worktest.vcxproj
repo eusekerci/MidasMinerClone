@@ -88,6 +88,7 @@
     <ClCompile Include="GridView.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Pool.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +104,12 @@
     <ClInclude Include="GridView.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputListener.h" />
+    <ClInclude Include="MatchListener.h" />
+    <ClInclude Include="MatchNotifier.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="PoolContainer.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

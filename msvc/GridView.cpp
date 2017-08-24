@@ -2,10 +2,11 @@
 
 namespace MidasMiner
 {
-	GridView::GridView(King::Engine& engine, Grid & grid)
+	GridView::GridView(King::Engine& engine, Grid & grid , ScoreManager& score)
 	{
 		mEngine = &engine;
 		mGrid = &grid;
+		mScoreManager = &score;
 
 		mGridSizeX = 352.0f;
 		mGridSizeY = 352.0f;
@@ -26,10 +27,15 @@ namespace MidasMiner
 	{
 	}
 
+	void GridView::Init()
+	{
+	}
+
 	void GridView::Update()
 	{
 		RenderBackground();
 		RenderGrid();
+		RenderUI();
 	}
 
 	void GridView::RenderBackground()
@@ -103,6 +109,11 @@ namespace MidasMiner
 		{
 			mEngine->Render(King::Engine::TEXTURE_SELECTION, mSelectedTileX, mSelectedTileY);
 		}
+	}
+
+	void GridView::RenderUI()
+	{
+		mEngine->Write(mScoreManager->GetScoreString().c_str(), 470.0f, 50.0f);
 	}
 
 	bool GridView::IsTileClicked(Pixel pi)

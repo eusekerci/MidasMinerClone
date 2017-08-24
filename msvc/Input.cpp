@@ -14,6 +14,8 @@ namespace MidasMiner
 
 	void Input::OnMouseClickNotify(float x, float y)
 	{
+		if (mListeners.empty())
+			return;
 		for (auto a : mListeners)
 		{
 			a->OnMouseDown(x, y);
@@ -22,6 +24,8 @@ namespace MidasMiner
 
 	void Input::OnMouseUpNotify(float x, float y)
 	{
+		if (mListeners.empty())
+			return;
 		for (auto a : mListeners)
 		{
 			a->OnMouseUp(x, y);

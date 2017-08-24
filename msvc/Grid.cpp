@@ -8,8 +8,6 @@ namespace MidasMiner
 		, mIsInitiliazed(false)
 	{
 		srand((unsigned int)time(0));
-
-		PrintGrid();
 	}
 
 	Grid::~Grid()
@@ -34,7 +32,7 @@ namespace MidasMiner
 			mGrid.push_back(newVec);
 		}
 
-		PrintGrid();
+		PrintGrid("Board was Set");
 	}
 
 	Tile * Grid::RandomTile()
@@ -124,8 +122,9 @@ namespace MidasMiner
 		return GetTile(x, y)->IsEmpty();
 	}
 
-	void Grid::PrintGrid()
+	void Grid::PrintGrid(const std::string msg)
 	{
+		std::cout << msg << std::endl;
 		for (auto a : mGrid)
 		{
 			for (auto b : *a)
