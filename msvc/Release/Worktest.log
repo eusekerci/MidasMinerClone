@@ -11,10 +11,8 @@
   Input.cpp
   Pool.cpp
   Tile.cpp
-Tile.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-Tile.cpp(20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating code
-  All 899 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 901 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.exe
   Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.pdb (Full PDB)

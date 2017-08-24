@@ -111,11 +111,21 @@ namespace MidasMiner
 			for (int j = 0; j < mGrid->GetWidth(); j++)
 			{
 				newVec->push_back(mGrid->RandomTile());
-				newVec->back()->SetPosition(j, i);			}
+				newVec->back()->SetPosition(j, i);			
+			}
 			res.push_back(newVec);
 		}
 
 		mGrid->SetGrid(res);
+
+		while (CheckAutoMatch(minLongToMatch))
+		{
+			ExecuteAutoMatch(minLongToMatch);
+		}
+
+		mGrid->SetInitiliazed(true);
+
+		mGrid->PrintGrid();
 	}
 
 	bool Controller::Swap()

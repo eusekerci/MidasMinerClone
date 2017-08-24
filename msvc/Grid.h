@@ -34,6 +34,7 @@ namespace MidasMiner
 		int GetWidth();
 		int GetHeight();
 		bool IsInitiliazed();
+		void SetInitiliazed(bool b);
 
 	private:
 		int mWidth;

@@ -16,8 +16,8 @@ namespace MidasMiner
 	Tile::Tile(int x, int y, TileColor color)
 	{
 		Tile();
-		mX = x;
-		mY = y;
+		mX = static_cast<float>(x);
+		mY = static_cast<float>(y);
 		mColor = color;
 		mIsReady = false;
 		mRenderValues.Rotation = 0;

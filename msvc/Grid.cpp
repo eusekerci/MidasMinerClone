@@ -34,8 +34,6 @@ namespace MidasMiner
 			mGrid.push_back(newVec);
 		}
 
-		mIsInitiliazed = true;
-
 		PrintGrid();
 	}
 
@@ -153,5 +151,9 @@ namespace MidasMiner
 	bool Grid::IsInitiliazed()
 	{
 		return mIsInitiliazed;
+	}
+	void Grid::SetInitiliazed(bool b)
+	{
+		mIsInitiliazed = b;
 	}
 }
