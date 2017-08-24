@@ -82,10 +82,6 @@ namespace MidasMiner
 
 	void Tile::SetPosition(int x, int y)
 	{
-		if (mX != x || mY != y)
-		{
-			SetReady(false);
-		}
 		mX = x;
 		mY = y;
 	}

@@ -20,6 +20,7 @@ namespace MidasMiner
 	{
 		if (mPool.empty())
 		{
+			std::cout << "Pool is empty" << std::endl;
 			return new Tile(mInstance);
 		}
 

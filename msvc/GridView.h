@@ -7,6 +7,7 @@
 #include "Grid.h"
 #include "Controller.h"
 #include <vector>
+#include <map>
 #include <algorithm>
 
 namespace MidasMiner
@@ -31,9 +32,20 @@ namespace MidasMiner
 		struct TileTween
 		{
 			Tile* tile;
+			Tile::TileColor color;
 			float currentPixelX;
 			float currentPixelY;
+			float toPixelX;
+			float toPixelY;
 			float time;
+			float priority;
+
+			bool operator<(const TileTween& rhs) const
+			{
+				return priority < rhs.priority;
+			}
+
+			bool compare(int i, int j) { return i < j; }
 		};
 
 		GridView() {};
@@ -53,10 +65,13 @@ namespace MidasMiner
 		void OnResetSelection();
 
 		void TileMoveTween(Tile& t, int oldX, int oldY);
-		void SpawnTileTween(Tile& t);
+		void SpawnTileTween(Tile& t, int order);
+		void SwapTileTween(Tile& t1, Tile& t2, int order);
 
 		Pixel PositionToPixel(Position pos);
 		Position PixelToPosition(Pixel pi);
+
+		bool WaitForAnim();
 
 	private:
 		King::Engine* mEngine;

@@ -36,7 +36,9 @@ namespace MidasMiner
 
 		void ExecuteMatch(std::vector<Tile*> tiles);
 		void CollapseBoard();
+		void ReOrganizeColumn(int x);
 		void SummonNewTiles();
+		void FillEmptyTiles();
 		bool CheckAutoMatch(int minLong);
 		void ExecuteAutoMatch(int minLong);
 		void SetReadyAllTiles();
@@ -48,6 +50,7 @@ namespace MidasMiner
 		Tile* secondSelect;
 		bool isSelectionActive;
 		int minLongToMatch;
+		int mSwapOrder;
 	};
 }
 

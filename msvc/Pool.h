@@ -2,6 +2,7 @@
 
 #include <queue>
 #include "Tile.h"
+#include <iostream>
 
 namespace MidasMiner
 {

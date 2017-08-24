@@ -12,6 +12,7 @@ namespace MidasMiner
 		
 		isSelectionActive = true;
 		minLongToMatch = 3;
+		mSwapOrder = 0;
 	}
 
 	Controller::~Controller()
@@ -93,7 +94,6 @@ namespace MidasMiner
 		{
 
 		}
-		SetReadyAllTiles();
 		ResetSelections();
 	}
 
@@ -107,10 +107,11 @@ namespace MidasMiner
 			{
 				newVec->push_back(mGrid->RandomTile());
 				newVec->back()->SetPosition(j, i);
-				mView->SpawnTileTween(*(newVec->back()));
+				mView->SpawnTileTween(*(newVec->back()), mSwapOrder);
 			}
 			res.push_back(newVec);
 		}
+		mSwapOrder++;
 
 		mGrid->SetGrid(res);
 	}
@@ -118,6 +119,7 @@ namespace MidasMiner
 	bool Controller::Swap()
 	{
 		mGrid->Swap(*firstSelect, *secondSelect);
+		mView->SwapTileTween(*firstSelect, *secondSelect, mSwapOrder++);
 
 		if (CheckMatch(firstSelect, 3) || CheckMatch(secondSelect, 3))
 		{
@@ -129,6 +131,7 @@ namespace MidasMiner
 
 		//Revert
 		mGrid->Swap(*firstSelect, *secondSelect);
+		mView->SwapTileTween(*firstSelect, *secondSelect, mSwapOrder++);
 
 		std::cout << "Swap Failed" << std::endl;
 		mGrid->PrintGrid();
@@ -274,13 +277,58 @@ namespace MidasMiner
 	{
 		for (int i = 0; i < mGrid->GetWidth(); i++)
 		{
-			mGrid->ReOrganizeColumn(i);
+			ReOrganizeColumn(i);
+		}
+	}
+
+	void Controller::ReOrganizeColumn(int x)
+	{
+		int count = 0;
+		std::vector<int> index;
+
+		for (int i = 0; i<mGrid->GetHeight(); i++)
+		{
+			mGrid->GetTile(x, i)->SetPosition(x, i);
+
+			if (mGrid->GetTile(x, i)->IsEmpty())
+			{
+				count++;
+				index.push_back(i);
+			}
+		}
+
+		if (index.size() > 0)
+		{
+			int howManyWillDrop = index[0];
+
+			for (int i = howManyWillDrop; i > 0; i--)
+			{
+				mGrid->Swap(*(mGrid->GetTile(x, i - 1)), *(mGrid->GetTile(x, i - 1 + count)));
+				mView->SwapTileTween(*(mGrid->GetTile(x, i - 1)), *(mGrid->GetTile(x, i - 1 + count)), mSwapOrder);
+			}
+			mSwapOrder++;
 		}
 	}
 
 	void Controller::SummonNewTiles()
 	{
-		mGrid->FillEmptyTiles();
+		FillEmptyTiles();
+	}
+
+	void Controller::FillEmptyTiles()
+	{
+		for (int i = 0; i<mGrid->GetWidth(); i++)
+		{
+			for (int j = 0; j<mGrid->GetHeight(); j++)
+			{
+				if (mGrid->GetTile(j, i)->IsEmpty())
+				{
+					mGrid->AddTile(j, i);
+					mView->SpawnTileTween(*(mGrid->GetTile(j,i)), mSwapOrder);
+				}
+			}
+		}
+		mSwapOrder++;
 	}
 
 	bool Controller::CheckAutoMatch(int minLong)
@@ -320,6 +368,7 @@ namespace MidasMiner
 			}
 		}
 	}
+	
 	void Controller::SetReadyAllTiles()
 	{
 		for (int i = 0; i < mGrid->GetHeight(); i++)
