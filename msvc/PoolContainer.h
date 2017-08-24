@@ -1,7 +1,9 @@
+#ifndef POOLCONTAINER_H_
+#define POOLCONTAINER_H_
+
 #pragma once
 
 #include "Pool.h"
-#include "Tile.h"
 
 namespace MidasMiner
 {
@@ -13,3 +15,5 @@ namespace MidasMiner
 
 	static Pool* TilePools[] = { &BlueTilePole, &GreenTilePole, &PurpleTilePole, &YellowTilePole, &RedTilePole };
 }
+
+#endif //POOLCONTAINER_H_

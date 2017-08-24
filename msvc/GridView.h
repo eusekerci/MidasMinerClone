@@ -29,25 +29,6 @@ namespace MidasMiner
 			int y;
 		};
 
-		struct TileTween
-		{
-			Tile* tile;
-			Tile::TileColor color;
-			float currentPixelX;
-			float currentPixelY;
-			float toPixelX;
-			float toPixelY;
-			float time;
-			float priority;
-			int tweenReadyMatrix[8][8];
-			int tweenColorMatrix[8][8];
-
-			bool operator<(const TileTween& rhs) const
-			{
-				return priority < rhs.priority;
-			}
-		};
-
 		GridView() {};
 		GridView(King::Engine& engine, Grid& grid);
 		~GridView();
@@ -64,25 +45,13 @@ namespace MidasMiner
 		void OnFirstSelected(Tile& t);
 		void OnResetSelection();
 
-		void TileMoveTween(Tile& t, int oldX, int oldY);
-		void SpawnTileTween(Tile& t, int order);
-		void SwapTileTween(Tile& t1, Tile& t2, int order);
-
 		Pixel PositionToPixel(Position pos);
 		Position PixelToPosition(Pixel pi);
-
-		void UpdateMatrix();
-		void UpdateMatrix(int r[8][8], int c[8][8]);
-
-		bool WaitForAnim();
 
 	private:
 		King::Engine* mEngine;
 		Controller* mController;
 		Grid* mGrid;
-		std::vector<TileTween> mDropingTiles;
-		int readyMatrix[8][8];
-		int colorMatrix[8][8];
 		
 		float mGridSizeX;
 		float mGridSizeY;
@@ -99,8 +68,6 @@ namespace MidasMiner
 		bool mIsTileSelected;
 		float mSelectedTileX;
 		float mSelectedTileY;
-
-		float mTileTweenSpeed;
 	};
 }
 

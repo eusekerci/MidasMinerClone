@@ -1,8 +1,12 @@
+#ifndef POOL_H_
+#define POOL_H_
+
 #pragma once
 
-#include <queue>
+#include "Renderer.h"
 #include "Tile.h"
 #include <iostream>
+#include <queue>
 
 namespace MidasMiner
 {
@@ -25,3 +29,5 @@ namespace MidasMiner
 		Tile mInstance;
 	};
 }
+
+#endif // POOL_H_

@@ -8,18 +8,13 @@
   Controller.cpp
   Grid.cpp
   GridView.cpp
-GridView.cpp(58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-GridView.cpp(143): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-GridView.cpp(143): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-GridView.cpp(164): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-GridView.cpp(164): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-GridView.cpp(165): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-GridView.cpp(165): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Input.cpp
   Pool.cpp
   Tile.cpp
+Tile.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Tile.cpp(20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating code
-  All 1021 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 899 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.exe
-  Worktest.vcxproj -> D:\VS Projects\MidasMinerClone\bin\Worktest.pdb (Full PDB)
+  Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.exe
+  Worktest.vcxproj -> E:\Repos\MidasMinerClone\bin\Worktest.pdb (Full PDB)

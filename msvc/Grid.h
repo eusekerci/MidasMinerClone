@@ -1,3 +1,6 @@
+#ifndef GRID_H_
+#define GRID_H_
+
 #pragma once
 
 #include <vector>
@@ -8,6 +11,8 @@
 
 namespace MidasMiner
 {
+	class Tile;
+
 	class Grid
 	{
 	public:
@@ -37,3 +42,5 @@ namespace MidasMiner
 		std::vector< std::vector< Tile * > * > mGrid;
 	};
 }
+
+#endif

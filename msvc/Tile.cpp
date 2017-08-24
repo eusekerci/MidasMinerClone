@@ -3,6 +3,8 @@
 
 namespace MidasMiner
 {
+	class Renderer;
+
 	Tile::Tile()
 	{
 		mColor = COLOR_NULL;
@@ -18,6 +20,10 @@ namespace MidasMiner
 		mY = y;
 		mColor = color;
 		mIsReady = false;
+		mRenderValues.Rotation = 0;
+		mRenderValues.SizeX = 44.0f;
+		mRenderValues.SizeY = 44.0f;
+		mRenderValues.Texture = static_cast<King::Engine::Texture>(static_cast<int>(mColor));	
 	}
 
 	bool Tile::IsAdjacent(Tile* t)
@@ -57,12 +63,28 @@ namespace MidasMiner
 
 	int Tile::GetX()
 	{
-		return mX;
+		return static_cast<int>(mX);
 	}
 
 	int Tile::GetY()
 	{
+		return static_cast<int>(mY);
+	}
+
+	float Tile::GetExactX()
+	{
+		return mX;
+	}
+
+	float Tile::GetExactY()
+	{
 		return mY;
+	}
+
+	void Tile::SetTarget(float x, float y)
+	{
+		mTargetX = x;
+		mTargetY = y;
 	}
 
 	bool Tile::IsEmpty()
@@ -82,8 +104,33 @@ namespace MidasMiner
 
 	void Tile::SetPosition(int x, int y)
 	{
-		mX = x;
-		mY = y;
+		mX = static_cast<float>(x);
+		mY = static_cast<float>(y);
+	}
+
+	Renderer::RenderValues Tile::GetRenderValues(float anchorX, float anchorY, float tick)
+	{
+		if (!IsReady())
+		{
+			mX += (mTargetX > mX) ? tick * mMoveSpeed : -1 * tick * mMoveSpeed;
+			mY += (mTargetY > mY) ? tick * mMoveSpeed : -1 * tick * mMoveSpeed;
+
+			if (abs(mX - mTargetX) < tick*mMoveSpeed && abs(mY - mTargetY) < tick*mMoveSpeed)
+			{
+				mX = mTargetX;
+				mY = mTargetY;
+			}
+		}
+		else
+		{
+			mX = mTargetX;
+			mY = mTargetY;
+		}
+
+		mRenderValues.PosX = mX * mRenderValues.SizeX + anchorX;
+		mRenderValues.PosY = mY * mRenderValues.SizeY + anchorY;
+
+		return mRenderValues;
 	}
 
 	Tile::~Tile()

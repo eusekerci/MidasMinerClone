@@ -1,8 +1,15 @@
+#ifndef TILE_H_
+#define TILE_H_
+
 #pragma once
+
+#include "Renderer.h"
 
 namespace MidasMiner
 {
-	class Tile
+	class Renderer;
+
+	class Tile : public Renderer
 	{
 	public:
 		enum TileColor
@@ -28,15 +35,24 @@ namespace MidasMiner
 		TileColor GetColor();
 		int GetX();
 		int GetY();
+		float GetExactX();
+		float GetExactY();
+		void SetTarget(float x, float y);
 		bool IsEmpty();
 		bool IsReady();
 		void SetReady(bool r);
 		void SetPosition(int x, int y);
+		Renderer::RenderValues GetRenderValues(float anchorX, float anchorY, float tick);
 
 	private:
-		int mX;
-		int mY;
+		float mX;
+		float mY;
+		float mTargetX;
+		float mTargetY;
 		bool mIsReady;
+		float mMoveSpeed;
 		Tile::TileColor mColor;
 	};
 }
+
+#endif // TILE_H_

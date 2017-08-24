@@ -131,5 +131,8 @@
     <ClInclude Include="GridView.h">
       <Filter>Header Files\view</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

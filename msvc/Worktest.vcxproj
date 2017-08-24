@@ -105,6 +105,7 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="PoolContainer.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -106,31 +106,16 @@ namespace MidasMiner
 			for (int j = 0; j < mGrid->GetWidth(); j++)
 			{
 				newVec->push_back(mGrid->RandomTile());
-				newVec->back()->SetPosition(j, i);
-	//			mView->SpawnTileTween(*(newVec->back()), mSwapOrder);
-			}
+				newVec->back()->SetPosition(j, i);			}
 			res.push_back(newVec);
 		}
 
 		mGrid->SetGrid(res);
-
-		mView->UpdateMatrix();
-
-		for (int i = 0; i < mGrid->GetHeight(); i++)
-		{
-			for (int j = 0; j < mGrid->GetWidth(); j++)
-			{
-				mView->SpawnTileTween(*(mGrid->GetTile(i, j)), mSwapOrder);
-			}
-		}
-
-		mSwapOrder++;
 	}
 
 	bool Controller::Swap()
 	{
 		mGrid->Swap(*firstSelect, *secondSelect);
-		mView->SwapTileTween(*firstSelect, *secondSelect, mSwapOrder++);
 
 		if (CheckMatch(firstSelect, 3) || CheckMatch(secondSelect, 3))
 		{
@@ -142,7 +127,6 @@ namespace MidasMiner
 
 		//Revert
 		mGrid->Swap(*firstSelect, *secondSelect);
-		mView->SwapTileTween(*firstSelect, *secondSelect, mSwapOrder++);
 
 		std::cout << "Swap Failed" << std::endl;
 		mGrid->PrintGrid();
@@ -315,7 +299,6 @@ namespace MidasMiner
 			for (int i = howManyWillDrop; i > 0; i--)
 			{
 				mGrid->Swap(*(mGrid->GetTile(x, i - 1)), *(mGrid->GetTile(x, i - 1 + count)));
-				mView->SwapTileTween(*(mGrid->GetTile(x, i - 1)), *(mGrid->GetTile(x, i - 1 + count)), mSwapOrder);
 			}
 			mSwapOrder++;
 		}
@@ -335,7 +318,6 @@ namespace MidasMiner
 				if (mGrid->GetTile(j, i)->IsEmpty())
 				{
 					mGrid->AddTile(j, i);
-					mView->SpawnTileTween(*(mGrid->GetTile(j,i)), mSwapOrder);
 				}
 			}
 		}
