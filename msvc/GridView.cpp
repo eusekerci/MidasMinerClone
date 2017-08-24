@@ -113,7 +113,8 @@ namespace MidasMiner
 
 	void GridView::RenderUI()
 	{
-		mEngine->Write(mScoreManager->GetScoreString().c_str(), 470.0f, 50.0f);
+		mEngine->Write(std::to_string(mScoreManager->GetScore()).c_str(), 470.0f, 50.0f);
+		mEngine->Write(std::to_string(mScoreManager->GetTime()).c_str(), 100.0f, 450.0f);
 	}
 
 	bool GridView::IsTileClicked(Pixel pi)

@@ -17,7 +17,6 @@ namespace MidasMiner
 		void Init();
 		void Update();
 		int GetScore();
-		std::string GetScoreString();
 		void AddScore(int s);
 		int GetTime();
 		float GetExactTime();

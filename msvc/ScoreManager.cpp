@@ -43,12 +43,6 @@ namespace MidasMiner
 		return mScore;
 	}
 
-	std::string ScoreManager::GetScoreString()
-	{
-		std::string res = std::to_string(mScore);
-		return res;
-	}
-
 	void ScoreManager::AddScore(int s)
 	{
 		mScore += s;
