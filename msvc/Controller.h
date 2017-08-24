@@ -70,6 +70,7 @@ namespace MidasMiner
 		bool isSelectionActive;
 		int minLongToMatch;
 		int mSwapOrder;
+		bool mouseUp;
 	};
 }
 

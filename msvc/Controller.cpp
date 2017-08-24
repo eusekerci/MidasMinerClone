@@ -22,6 +22,8 @@ namespace MidasMiner
 
 	void Controller::OnMouseDown(float x, float y)
 	{
+		if (!mouseUp)
+			return;
 		if (mView->IsTileClicked(x, y))
 		{
 			OnTileSelected(*(mView->GetTileClicked(x,y)));
@@ -30,7 +32,7 @@ namespace MidasMiner
 
 	void Controller::OnMouseUp(float x, float y)
 	{
-
+		mouseUp = true;
 	}
 
 	void Controller::OnTileSelected(Tile& t)
@@ -62,6 +64,7 @@ namespace MidasMiner
 		secondSelect = NULL;
 		mView->OnResetSelection();
 		isSelectionActive = true;
+		mouseUp = false;
 	}
 
 	void Controller::OnFirstSelected(Tile& t)
