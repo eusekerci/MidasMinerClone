@@ -55,7 +55,8 @@ namespace MidasMiner
 		void FillEmptyTiles();
 		bool CheckAutoMatch(int minLong);
 		void ExecuteAutoMatch(int minLong);
-		void SetReadyAllTiles();
+		bool IsGameOn();
+		void SetGameOn(bool b);
 
 		void OnMatchNotify(MatchTypes type, int x, int y);
 		void Attach(MatchListener* listener);
@@ -71,6 +72,7 @@ namespace MidasMiner
 		int minLongToMatch;
 		int mSwapOrder;
 		bool mouseUp;
+		bool isGameOn;
 	};
 }
 

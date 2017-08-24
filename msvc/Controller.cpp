@@ -14,6 +14,8 @@ namespace MidasMiner
 		isSelectionActive = true;
 		minLongToMatch = 3;
 		mSwapOrder = 0;
+		mouseUp = true;
+		isGameOn = false;
 	}
 
 	Controller::~Controller()
@@ -22,7 +24,7 @@ namespace MidasMiner
 
 	void Controller::OnMouseDown(float x, float y)
 	{
-		if (!mouseUp)
+		if (!mouseUp || !IsGameOn())
 			return;
 		if (mView->IsTileClicked(x, y))
 		{
@@ -126,6 +128,8 @@ namespace MidasMiner
 		mGrid->PrintGrid("Board Initiliazed");
 
 		mInput->Attach(dynamic_cast<InputListener*>(this));
+
+		SetGameOn(true);
 	}
 
 	void Controller::Update()
@@ -418,18 +422,17 @@ namespace MidasMiner
 			}
 		}
 	}
-	
-	void Controller::SetReadyAllTiles()
+
+	bool Controller::IsGameOn()
 	{
-		for (int i = 0; i < mGrid->GetHeight(); i++)
-		{
-			for (int j = 0; j < mGrid->GetWidth(); j++)
-			{
-				mGrid->GetTile(i, j)->SetReady(true);
-			}
-		}
+		return isGameOn;
 	}
 
+	void Controller::SetGameOn(bool b)
+	{
+		isGameOn = b;
+	}
+	
 #pragma region  MatchNotifier
 
 	void Controller::OnMatchNotify(MatchTypes type, int x, int y)

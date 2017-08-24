@@ -35,7 +35,15 @@ namespace MidasMiner
 
 	void ScoreManager::Update()
 	{
-		mTime -= mEngine->GetLastFrameSeconds();
+		if (mController->IsGameOn())
+		{
+			mTime -= mEngine->GetLastFrameSeconds();
+			if (mTime < 0.0f)
+			{
+				mTime = 0.0f;
+				mController->SetGameOn(false);
+			}
+		}
 	}
 
 	int ScoreManager::GetScore()
@@ -60,6 +68,7 @@ namespace MidasMiner
 
 	void ScoreManager::OnMatch(MatchTypes type, int x, int y)
 	{
-		AddScore(mScoreSheet[type]);
+		if(mController->IsGameOn())
+			AddScore(mScoreSheet[type]);
 	}
 }
