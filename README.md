@@ -1,8 +1,8 @@
 # MidasMinerClone
-A time-based match three clone
+## A time-based match three clone
 
 Key features:
-- Randomly generated, 60 minutes long, time-based dynamic match three game
+- Randomly generated, 60 seconds long, time-based dynamic match three game
 - 3-4-5 and cross matches are valid.
 - Score is based on the matchedDiamondCount * 100
 - Press any key to quit
@@ -19,7 +19,7 @@ Structurel Nots:
 - The code base has MVC architecture that shown on the graph:
 <img src="MidasMinerDesign.png" width="680" height="430"/>
 - The game logic implemented based on a state machine:
-<img src="StateMachine.png" width="680" height="430"/>
+<img src="StateMachine.png" width="680" height="600"/>
 
 To Do:
 - Animations (most curicial)
@@ -38,19 +38,19 @@ Be consider to use one dimensional network to store next time.
 Good Reading:
 - <a href="http://www.gamasutra.com/blogs/JonathanBailey/20150227/237544/Match_Game_Mechanics_An_exhaustive_survey.php" target="_blank">Match Game Mechanics</a>
 
-Additional notes
+Additional notes:
 - Most challenging part of the project?
-Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
-On this game, the player doesn't need to wait for that the logic complete and turn back to idle state.
-This means player need to swap also when tiles are dropping or board is collapsing etc.
-If it used to be a state based game, like logic and user must wait for animations, view part would be much easier to implement.
-I tried lots of different implementation for animations and tweens but some of them spend much more memory (<a href="https://github.com/eusekerci/MidasMinerClone/commit/71c03f6015d2875b747a3c6b24d4c34255c50c6a">this commit</a>) and some of them doesnt work properly (<a href="https://github.com/eusekerci/MidasMinerClone/commit/d7d16e36f5e3c625d8a95e5ffbd5642970407694">this commit</a>).
-So, it would be better without animations for the game feel and playability.
+...Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
+...On this game, the player doesn't need to wait for that the logic complete and turn back to idle state.
+...This means player need to swap also when tiles are dropping or board is collapsing etc.
+...If it used to be a state based game, like logic and user must wait for animations, view part would be much easier to implement.
+...I tried lots of different implementation for animations and tweens but some of them spend much more memory (<a href="https://github.com/eusekerci/MidasMinerClone/commit/71c03f6015d2875b747a3c6b24d4c34255c50c6a">this commit</a>) and some of them doesnt work properly (<a href="https://github.com/eusekerci/MidasMinerClone/commit/d7d16e36f5e3c625d8a95e5ffbd5642970407694">this commit</a>).
+...So, it would be better without animations for the game feel and playability.
 
 - Additional features?
-Actually I would like to add boosters and I implemented the sustainable and extendable code base. 
-However, completing the main task on the time would be better than adding additional features after deadline.
+...Actually I would like to add boosters and I implemented the sustainable and extendable code base. 
+...However, completing the main task on the time would be better than adding additional features after deadline.
 
 - Struggle with C++?
-It was really good practice for making from scratch. It force me to think with MVC and stick with programming patterns.
-I've faced some common problems which I didn't faced in C# before, like Slicing Problem, but I found the solutions and learn.
+...It was really good practice for making from scratch. It force me to think with MVC and stick with programming patterns.
+...I've faced some common problems which I didn't faced in C# before, like Slicing Problem, but I found the solutions and learn.
