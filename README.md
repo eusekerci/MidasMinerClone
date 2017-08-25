@@ -1,13 +1,13 @@
 # MidasMinerClone
 ## A time-based match three clone
 
-Key features:
+### Key features:
 - Randomly generated, 60 seconds long, time-based dynamic match three game
 - 3-4-5 and cross matches are valid.
 - Score is based on the matchedDiamondCount * 100
 - Press any key to quit
 
-Technical Notes:
+### Technical Notes:
 - Grid.cpp contains all board data with vector<vector<Tile*>*>
 - Tile.cpp has only object that would be rendered. When we want to implement other type of tiles, like boosters or obstacles, just inherit from Tile.cpp and use it.
 - There are 5 pools that store 64 Tile object in each dynamicly to get rid of construction time at every Tile Create
@@ -15,19 +15,19 @@ Technical Notes:
 - View.cpp is responsible for rendering, both objects and ui.
 - ScoreManager is responsible for count the score and time.
 
-Structurel Nots:
+### Structurel Nots:
 - The code base has MVC architecture that shown on the graph:
 <img src="MidasMinerDesign.png" width="680" height="430"/>
 - The game logic implemented based on a state machine:
-<img src="StateMachine.png" width="680" height="600"/>
+<img src="StateMachine.png" width="800" height="280"/>
 
-To Do:
+### To Do:
 - Animations (most curicial)
 - Boosters (optional)
 - Better score system, combos (optional)
 - Better game transitions (start new game, quit game etc.)
 
-What I Learned:
+### What I Learned:
 - C++ Slicing problem and how to solve it
 - Some C++14 features, like range based for loops
 - Erase-remove idom
@@ -35,10 +35,10 @@ What I Learned:
 Be consider to use one dimensional network to store next time.
 - Think twice before implementing a real-time, interruptable game logic. State machines would be not enough for these type of tasks.
 
-Good Reading:
+### Good Reading:
 - <a href="http://www.gamasutra.com/blogs/JonathanBailey/20150227/237544/Match_Game_Mechanics_An_exhaustive_survey.php" target="_blank">Match Game Mechanics</a>
 
-Additional notes:
+### Additional notes:
 - Most challenging part of the project?
 
 Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
