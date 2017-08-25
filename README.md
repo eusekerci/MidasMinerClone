@@ -41,19 +41,19 @@ Good Reading:
 Additional notes:
 - Most challenging part of the project?
 
-...Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
-...On this game, the player doesn't need to wait for that the logic complete and turn back to idle state.
-...This means player need to swap also when tiles are dropping or board is collapsing etc.
-...If it used to be a state based game, like logic and user must wait for animations, view part would be much easier to implement.
-...I tried lots of different implementation for animations and tweens but some of them spend much more memory (<a href="https://github.com/eusekerci/MidasMinerClone/commit/71c03f6015d2875b747a3c6b24d4c34255c50c6a">this commit</a>) and some of them doesnt work properly (<a href="https://github.com/eusekerci/MidasMinerClone/commit/d7d16e36f5e3c625d8a95e5ffbd5642970407694">this commit</a>).
-...So, it would be better without animations for the game feel and playability.
+Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
+On this game, the player doesn't need to wait for that the logic complete and turn back to idle state.
+This means player need to swap also when tiles are dropping or board is collapsing etc.
+If it used to be a state based game, like logic and user must wait for animations, view part would be much easier to implement.
+I tried lots of different implementation for animations and tweens but some of them spend much more memory (<a href="https://github.com/eusekerci/MidasMinerClone/commit/71c03f6015d2875b747a3c6b24d4c34255c50c6a">this commit</a>) and some of them doesnt work properly (<a href="https://github.com/eusekerci/MidasMinerClone/commit/d7d16e36f5e3c625d8a95e5ffbd5642970407694">this commit</a>).
+So, it would be better without animations for the game feel and playability.
 
 - Additional features?
 
-...Actually I would like to add boosters and I implemented the sustainable and extendable code base. 
-...However, completing the main task on the time would be better than adding additional features after deadline.
+Actually I would like to add boosters and I implemented the sustainable and extendable code base. 
+However, completing the main task on the time would be better than adding additional features after deadline.
 
 - Struggle with C++?
 
-...It was really good practice for making from scratch. It force me to think with MVC and stick with programming patterns.
-...I've faced some common problems which I didn't faced in C# before, like Slicing Problem, but I found the solutions and learn.
+It was really good practice for making from scratch. It force me to think with MVC and stick with programming patterns.
+I've faced some common problems which I didn't faced in C# before, like Slicing Problem, but I found the solutions and learn.
