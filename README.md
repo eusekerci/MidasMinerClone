@@ -40,6 +40,7 @@ Good Reading:
 
 Additional notes:
 - Most challenging part of the project?
+
 ...Obviously implementing animations and tweens on an interruptable (real-time) game logic. 
 ...On this game, the player doesn't need to wait for that the logic complete and turn back to idle state.
 ...This means player need to swap also when tiles are dropping or board is collapsing etc.
@@ -48,9 +49,11 @@ Additional notes:
 ...So, it would be better without animations for the game feel and playability.
 
 - Additional features?
+
 ...Actually I would like to add boosters and I implemented the sustainable and extendable code base. 
 ...However, completing the main task on the time would be better than adding additional features after deadline.
 
 - Struggle with C++?
+
 ...It was really good practice for making from scratch. It force me to think with MVC and stick with programming patterns.
 ...I've faced some common problems which I didn't faced in C# before, like Slicing Problem, but I found the solutions and learn.
